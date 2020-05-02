@@ -1,0 +1,152 @@
+public boolean deleteNode(Node node) {		
+        //Implementation Here...
+		
+		if(node.getLeft() == null && node.getRight() == null)
+		{	
+			if(node == root)
+				root = null;
+			else
+			{
+				if(node.isLeft_child_of_parent())
+				{
+					node.getParent().setLeft(null);
+				}
+				else
+				{
+					node.getParent().setRight(null);
+				}
+			}
+		}
+		else if(node.getLeft()!=null || node.getRight()!= null)
+		{
+			
+			if(node.getLeft()!=null && node.getRight()==null)
+			{
+				if(root == node)
+				{
+					root = root.getLeft();
+					return true;
+				}
+				
+				Node p = node;
+				node = node.getLeft();
+
+				node.setParent(p.getParent());
+				
+				if(p.getValue() > p.getParent().getValue())
+				{
+					p.getParent().setRight(node);
+				}
+				else
+				{
+					p.getParent().setLeft(node);
+				}
+        
+			}
+			else if(node.getLeft()==null && node.getRight()!=null)
+			{
+				if(root == node)
+				{
+					root = root.getRight();
+					return true;
+				}
+				
+				Node p = node;
+				node = node.getRight();		
+				
+				node.setParent(p.getParent());
+				
+				if(p.getValue() < p.getParent().getValue())
+				{
+					p.getParent().setLeft(node);
+				}
+				else
+				{
+					p.getParent().setRight(node);
+				}
+        
+			}
+		}
+		if(node.getLeft() != null && node.getRight() != null)
+		{
+			
+			Node p1 = node;
+			Node p = node.getLeft();
+			while(p.getRight()!=null)
+			{
+				p = p.getRight();
+			}
+			if(p.getLeft() != null)
+			{
+				
+				Node p2 = new Node();
+				p2 = p;
+				
+				Node p3 = new Node();
+				p3 = p.getLeft();
+				
+				Node p4 = new Node();
+				p4 = p1;
+				
+				
+				if(p.isLeft_child_of_parent())
+				{
+					p.getParent().setLeft(null);
+					p2.getParent().setLeft(p3);
+				}
+				else
+				{
+					p.getParent().setRight(null);
+					p2.getParent().setRight(p3);
+				}
+				
+				p2.setLeft(p4.getLeft());
+				p2.setRight(p4.getRight());
+				
+				if(p1.isLeft_child_of_parent())
+				{
+					p1.getParent().setLeft(null);
+					p4.getParent().setLeft(p2);
+				}
+				else
+				{
+					p1.getParent().setRight(null);
+					p4.getParent().setRight(p2);
+				}
+								
+			}
+			else
+			{
+				Node p2 = new Node();
+				p2 = p;
+				
+				if(p.isLeft_child_of_parent())
+					p.getParent().setLeft(null);
+				else
+					p.getParent().setRight(null);
+			
+				p2.setLeft(p1.getLeft());
+				p2.setRight(p1.getRight());
+				
+				Node p3 = new Node();
+				p3 = p1;
+				
+				if(p1.isLeft_child_of_parent())
+				{
+					p1.getParent().setLeft(null);
+					p3.getParent().setLeft(p2);					
+				}
+				else
+				{
+					p1.getParent().setRight(null);
+					p3.getParent().setRight(p2);
+				}
+				
+			}
+		}
+		
+		//The two variables below are for GUI use only. You don't need to use them.
+		select_node_value = -1;	
+		selected_node = null;
+		return true;		
+	}
