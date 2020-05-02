@@ -1,0 +1,180 @@
+public boolean deleteNode(Node node) {		
+
+		
+        //Implementation Here...
+		
+//		System.out.println(node.getValue());
+//		System.out.println("Left Value: "+node.getLeft().getValue());
+//		System.out.println("Right Value: "+node.getRight().getValue());
+		
+		if(node.getLeft() == null && node.getRight() == null)
+		{
+//			System.out.println("Case1");
+			
+			if(node == root)
+				root = null;
+			else
+			{
+				if(node.isLeft_child_of_parent())
+				{
+					node.getParent().setLeft(null);
+				}
+				else
+				{
+					node.getParent().setRight(null);
+					System.out.println("I am here");
+				}
+			}
+		}
+		else if(node.getLeft()!=null || node.getRight()!= null)
+		{
+//			System.out.println("Case2");
+			
+			if(node.getLeft()!=null && node.getRight()==null)
+			{
+				if(root == node)
+				{
+					root = root.getLeft();
+					return true;
+				}
+				
+//				System.out.println("Sub-Case1");
+				
+				Node p = node;
+				node = node.getLeft();
+//				System.out.println("Previous Node Value: "+p.getValue());
+//				System.out.println("New Value: "+node.getValue());
+				node.setParent(p.getParent());
+				
+				if(p.getValue() > p.getParent().getValue())
+				{
+					p.getParent().setRight(node);
+				}
+				else
+				{
+					p.getParent().setLeft(node);
+				}
+				
+				
+//				node = node.getLeft();
+			}
+			else if(node.getLeft()==null && node.getRight()!=null)
+			{
+				if(root == node)
+				{
+					root = root.getRight();
+					return true;
+				}
+				
+//				System.out.println("Sub-Case2");
+				
+				Node p = node;
+				node = node.getRight();		
+				
+//				System.out.println("Previous Node Value: "+p.getValue());
+//				System.out.println("New Value: "+node.getValue());
+				
+				node.setParent(p.getParent());
+				
+				if(p.getValue() < p.getParent().getValue())
+				{
+					p.getParent().setLeft(node);
+				}
+				else
+				{
+					p.getParent().setRight(node);
+				}
+				
+//				node.getRight().setParent(node.getParent());
+//				node = node.getRight();
+			}
+		}
+		if(node.getLeft() != null && node.getRight() != null)
+		{
+//			System.out.println("Case3");
+			
+			Node p1 = node;
+			Node p = node.getLeft();
+			while(p.getRight()!=null)
+			{
+//				System.out.println("While");
+				p = p.getRight();
+			}
+			if(p.getLeft() != null)
+			{
+//				System.out.println("Sub-Case 3-1");
+				
+				Node p2 = new Node();
+				p2 = p;
+				
+				Node p3 = new Node();
+				p3 = p.getLeft();
+				
+				Node p4 = new Node();
+				p4 = p1;
+				
+				
+				if(p.isLeft_child_of_parent())
+				{
+					p.getParent().setLeft(null);
+					p2.getParent().setLeft(p3);
+				}
+				else
+				{
+					p.getParent().setRight(null);
+					p2.getParent().setRight(p3);
+				}
+				
+				p2.setLeft(p4.getLeft());
+				p2.setRight(p4.getRight());
+				
+				if(p1.isLeft_child_of_parent())
+				{
+					p1.getParent().setLeft(null);
+					p4.getParent().setLeft(p2);
+				}
+				else
+				{
+					p1.getParent().setRight(null);
+					p4.getParent().setRight(p2);
+				}
+								
+			}
+			else
+			{
+//				System.out.println("Sub-Case 3-2");
+				
+				Node p2 = new Node();
+				p2 = p;
+				
+				if(p.isLeft_child_of_parent())
+					p.getParent().setLeft(null);
+				else
+					p.getParent().setRight(null);
+				
+//				p2.setParent(p1.getParent());
+				p2.setLeft(p1.getLeft());
+				p2.setRight(p1.getRight());
+				
+				Node p3 = new Node();
+				p3 = p1;
+				
+				if(p1.isLeft_child_of_parent())
+				{
+					p1.getParent().setLeft(null);
+					p3.getParent().setLeft(p2);					
+				}
+				else
+				{
+					p1.getParent().setRight(null);
+					p3.getParent().setRight(p2);
+				}
+				
+			}
+		}
+		
+		//The two variables below are for GUI use only. You don't need to use them.
+		select_node_value = -1;	
+		selected_node = null;
+		return true;		
+	}
