@@ -1,0 +1,45 @@
+public boolean insertNode(Node node) {
+
+
+        //Implementation Here...
+		
+		if(root == null)
+			root = node;
+		else
+		{
+			Node p = root;
+			
+			while(p != null) 
+			{
+				if(node.getValue() == p.getValue())
+					return false;
+				
+				if(node.getValue() < p.getValue())
+				{
+					if(p.getLeft() != null)
+					{
+						p = p.getLeft();
+					}
+					else
+					{
+						p.setLeft(node);
+						p = null;
+					}
+				}
+				else
+				{
+					if(p.getRight() != null)
+					{
+						p = p.getRight();
+					}
+					else
+					{
+						p.setRight(node);
+						p = null;
+					}
+				}
+			}
+		}
+		
+		return true;
+	}
