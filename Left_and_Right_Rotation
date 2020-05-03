@@ -1,0 +1,73 @@
+public void rightRotate(Node node)
+	{
+		node = node.getParent().getParent();
+//		System.out.println("Right Check of "+node.getValue());
+		
+		Node parent_of_node = node.getParent();
+		Node left_child_of_node = node.getLeft();
+		Node right_child_of_left_child = node.getLeft().getRight();
+		
+//		Step 1 : Connect left child of right subtree to node
+		node.setLeft(right_child_of_left_child);
+		
+//		Step 2 : Connect the node's parent to the node's right child parent
+		if(right_child_of_left_child != null)
+		{
+			right_child_of_left_child.setParent(node);
+		}
+		
+		left_child_of_node.setParent(parent_of_node);
+		
+		if(parent_of_node == null)
+		{
+			root = left_child_of_node;
+		}
+		else if(node.isLeft_child_of_parent())
+		{
+			parent_of_node.setLeft(left_child_of_node);
+		}
+		else
+		{
+			parent_of_node.setRight(left_child_of_node);
+		}
+		
+//		Step 3: Connect node as the left child of node's right child
+		left_child_of_node.setRight(node);
+		node.setParent(left_child_of_node);
+		
+	}
+	
+	public void leftRotate(Node node)
+	{
+		node = node.getParent().getParent();
+//		System.out.println("Left Check of "+node.getValue());
+		
+		Node parent_of_node = node.getParent();
+		Node rightchild_of_node = node.getRight();
+		Node leftchild_of_right_subtree = node.getRight().getLeft();
+		
+//		Step 1 : Connect left child of right subtree to node
+		node.setRight(leftchild_of_right_subtree);
+		leftchild_of_right_subtree.setParent(node);
+		
+//		Step 2 : Connect the node's parent to the node's right child parent
+		if(parent_of_node == null)
+		{
+			root = rightchild_of_node;
+		}
+		else if(node.isLeft_child_of_parent())
+		{
+			parent_of_node.setLeft(rightchild_of_node);
+			rightchild_of_node.setParent(parent_of_node);
+		}
+		else
+		{
+			parent_of_node.setRight(rightchild_of_node);
+			rightchild_of_node.setParent(parent_of_node);
+		}
+		
+//		Step 3: Connect node as the left child of node's right child
+		rightchild_of_node.setLeft(node);
+		node.setParent(rightchild_of_node);
+		
+	}
