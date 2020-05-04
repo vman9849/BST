@@ -1,0 +1,99 @@
+public boolean insertNodeRedBlack(Node node) {
+
+
+        //Implementation Here...
+		
+		System.out.println("Red Black Insertion Node: "+node.getValue());
+		
+		Node current_node = root;
+//		Node parent = node.getParent();
+//		Node uncle = null;
+//		Node grand_parent = node.getParent().getParent();
+		
+		if(root == null)
+		{
+			insertNode(node);
+			root = node;
+			node.setColor(true);
+			current_node = node;
+			return true;
+		}
+		else
+		{
+			insertNode(node);
+			node.setColor(false);
+			
+			if(node.getParent().getColor() == true)
+			{
+				System.out.println("I am case 2");
+				return true;
+			}
+			else if(node.getParent().getColor() == false)
+			{
+				Node parent = node.getParent();
+				Node grand_parent = node.getParent().getParent();
+				Node uncle;
+				if(node.getParent().isLeft_child_of_parent())
+					uncle = node.getParent().getParent().getRight();
+				else
+					uncle = node.getParent().getParent().getLeft();
+				
+				if(uncle.getColor() == false)
+				{
+					System.out.println("I am case 3");
+					
+//					System.out.println("Node Value: "+node.getValue());
+//					System.out.println("Parent Value: "+parent.getValue());
+//					System.out.println("GP Value: "+grand_parent.getValue());
+					
+					while(node.getParent() != null || node.getParent().getParent() != null)
+					{
+						parent = node.getParent();
+						grand_parent = node.getParent().getParent();
+						
+						if(parent.getColor() == true)
+						{
+							return true;
+						}
+						else
+						{
+							parent.setColor(true);
+							uncle.setColor(true);
+						}
+						if(grand_parent != root)
+						{
+							grand_parent.setColor(false);
+						}
+						else
+						{
+							return true;
+						}
+						
+						System.out.println("In While");
+						System.out.println("Node Value: "+node.getValue()+" Color: "+node.getColor());
+						System.out.println("Parent Value: "+parent.getValue()+" Color: "+parent.getColor());
+						System.out.println("Uncle Value: "+uncle.getValue()+" Color: "+uncle.getColor());
+						System.out.println("GP Value: "+grand_parent.getValue()+" Color: "+grand_parent.getColor());
+						System.out.println();
+						
+						node = grand_parent;
+					}
+					
+				}
+				else if(uncle.getColor() == true)
+				{
+					if(node.getParent().isLeft_child_of_parent() && node.isLeft_child_of_parent())
+						leftLeft(node);
+					else if(node.getParent().isLeft_child_of_parent() && !(node.isLeft_child_of_parent()))
+						leftRight(node);
+					else if(!(node.getParent().isLeft_child_of_parent()) && !(node.isLeft_child_of_parent()))
+						rightRight(node);
+					else if(!(node.getParent().isLeft_child_of_parent()) && node.isLeft_child_of_parent())
+						rightLeft(node);
+				}
+			}
+		}
+			
+		return true;
+	}
+	
