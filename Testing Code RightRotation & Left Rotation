@@ -12,4 +12,3 @@ if(node.getValue() == 9)
 				leftRotate(node.getParent());
 				return true;
 			}
- 
