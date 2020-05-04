@@ -1,5 +1,0 @@
-if(node.getValue() == 9)
-			{
-				rightRotate(node.getParent().getParent());
-				return true;
-			}
