@@ -1,0 +1,7 @@
+						//working code for 12,23, 17 RL case
+//						rightRotate(node.getParent());
+//						leftRotate(grand_parent);
+//						swapColors(node);
+//						swapColors(parent);
+//						System.out.println("Node color: "+node.getColor());
+//						System.out.println("Parent's color: "+parent.getColor());
