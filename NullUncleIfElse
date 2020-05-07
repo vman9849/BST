@@ -1,0 +1,31 @@
+					if(parent.isLeft_child_of_parent() && node.isLeft_child_of_parent())
+					{
+						System.out.println("I am in 1st Null Uncle condition");
+						leftLeft(node);
+					}						
+					else if(parent.isLeft_child_of_parent() && !(node.isLeft_child_of_parent()))
+					{
+						System.out.println("I am in 2nd Null Uncle condition");
+						leftRight(node);
+						
+//						leftLeft(node);
+//						System.out.println("Node Color: "+node.getColor());
+//						System.out.println("Node's Parent Color: "+parent.getColor());
+//						System.out.println("Node's GrandParent Color: "+grand_parent.getColor());
+					}
+					else if(!(parent.isLeft_child_of_parent()) && !(node.isLeft_child_of_parent()))
+					{
+						System.out.println("I am in 3rd Null Uncle condition");
+						rightRight(node);
+						
+//						rightLeft(node);
+//						System.out.println("Node Color: "+node.getColor());
+//						System.out.println("Node's Parent Color: "+parent.getColor());
+//						System.out.println("Node's GrandParent Color: "+grand_parent.getColor());
+						
+					}						
+					else if(!(parent.isLeft_child_of_parent()) && node.isLeft_child_of_parent())
+					{
+						System.out.println("I am in 4th Null Uncle condition");
+						rightLeft(node);
+					}
