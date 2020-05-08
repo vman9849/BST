@@ -1,0 +1,46 @@
+public boolean insertNodeRedBlack(Node node) {
+
+
+        //Implementation Here...
+		
+		System.out.println("Red Black Insertion Node: "+node.getValue());
+		
+//		Node current_node = root;
+//		Node parent = node.getParent();
+//		Node uncle = null;
+//		Node grand_parent = node.getParent().getParent();
+		
+		if(root == null)
+		{
+			insertNode(node);
+			root = node;
+			node.setColor(true);
+//			current_node = node;
+			return true;
+		}
+		else
+		{
+			insertNode(node);
+			node.setColor(false);
+			
+//			left rotation testing code
+//			if(node.getValue() == 3)
+//			{
+//				rightRotate(node.getParent().getParent());
+//				return true;
+//			}
+			
+			if(node.getParent().getColor() == true)
+			{
+				System.out.println("I am case 2");
+				return true;
+			}
+			else if(node.getParent().getColor() == false)
+			{
+				checkNode(node);
+			}
+		}
+			
+		return true;
+	}
+	
